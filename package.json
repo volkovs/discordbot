@@ -1,0 +1,19 @@
+{
+  "name": "putler-bot",
+  "version": "1.0.0",
+  "description": "experimental",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node putler-bot.js",
+    "test": "test"
+  },
+  "keywords": [
+    "discord",
+    "bot"
+  ],
+  "author": "volkovs",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^12.2.0"
+  }
+}
