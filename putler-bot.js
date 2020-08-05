@@ -155,7 +155,7 @@ function helpCommand(arguments, receivedMessage) {
 //     }
 // }, 5000)
 
-bot_token = process.env.bot_token
+bot_token = process.env.BOT_TOKEN
 if (!bot_token) {
     console.log('Bot token is NOT defined - please cpecify "bot_token=... npm run dev"')
     return
