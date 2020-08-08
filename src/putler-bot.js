@@ -4,9 +4,10 @@ const client = new Discord.Client();
 const avatarCommand = require('./commands/avatar-command');
 const embedCommand = require('./commands/embed-command');
 const reactCommand = require('./commands/react-command');
+const settingsCommand = require('./commands/settings-command');
 
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand],
+    'timezone-rewards': [avatarCommand, embedCommand, settingsCommand],
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
