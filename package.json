@@ -4,8 +4,8 @@
   "description": "experimental",
   "main": "index.js",
   "scripts": {
-    "dev": "node putler-bot.js",
-    "server": "nohup node putler-bot.js > output.log &",
+    "dev": "node src/putler-bot.js",
+    "server": "nohup node src/putler-bot.js > output.log &",
     "test": "test"
   },
   "keywords": [
