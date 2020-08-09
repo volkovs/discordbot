@@ -28,7 +28,7 @@ module.exports = {
             let gmtShift = parseInt(gmt[1]);
             settings.setUserTime(message.author, gmtShift);
 
-            message.channel.send(`User ${username} time set to GMT${gmtShift}`);
+            message.channel.send(`User ${username} set time to GMT${gmtShift}`);
         } else {
             message.reply(this.hint());
         }
