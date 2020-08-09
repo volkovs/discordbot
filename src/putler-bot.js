@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const settingsService = require('./services/settings-service');
 
 const avatarCommand = require('./commands/avatar-command');
 const embedCommand = require('./commands/embed-command');
@@ -99,6 +100,7 @@ function findChannelIn(channelName, guild) {
 }
 
 function setUp() {
+    settingsService.init();
     client.user.setActivity('with human beings');
 
     console.log("Servers:");
