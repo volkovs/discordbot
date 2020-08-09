@@ -4,8 +4,8 @@ const botName = '@PutlerBot';
 const fullExample = `${botName} please set my reward time to GMT -5`;
 const shortExample = `${botName} set time GMT+8`;
 
-let setTimeIntentPattern = /.+set.+time/
-let setTimePattern = /.+set.+time.+GMT\s*\+*(-*\d+)/;
+let setTimeIntentPattern = /.+set.+time/i
+let setTimePattern = /.+set.+time.+GMT\s*\+*(-*\d+)/i;
 
 module.exports = {
 
@@ -26,11 +26,11 @@ module.exports = {
             let userId = message.author.id;
             let username = message.author.username;
             let gmtShift = parseInt(gmt[1]);
-            message.channel.send('User ' + username + ' ' + userId + ' has GMT' + gmtShift);
-
             settings.setUserTime(message.author, gmtShift);
+
+            message.channel.send(`User ${username} time set to GMT${gmtShift}`);
         } else {
-            message.reply(hint());
+            message.reply(this.hint());
         }
         
     },

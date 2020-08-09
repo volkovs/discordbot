@@ -6,7 +6,7 @@ const botName = "@PutlerBot";
 const fullExample = `${botName} please help`;
 const shortExample = `${botName} help`;
 
-let helpPattern = /<@!.+>\s+(?:please\s+)*help/;
+let helpPattern = /<@!.+>\s+(?:please\s+)*help/i;
 
 module.exports = {
   name: "Help",

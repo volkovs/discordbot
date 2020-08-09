@@ -4,9 +4,9 @@ const setTimeCommand = require("./set-time-command.js");
 
 const botName = "@PutlerBot";
 const fullExample = `${botName} what is my reward time?`;
-const shortExample = `${botName} get reward time`;
+const shortExample = `${botName} get time`;
 
-let getMyTimePattern = /.+(?:what is|when is|get)(?:\s+my)*(?:\s+reward)*\s+time/;
+let getMyTimePattern = /.+(?:what is|when is|get)(?:\s+my)*(?:\s+reward)*\s+time/i;
 
 module.exports = {
   name: "Show my reward time",
@@ -27,7 +27,7 @@ module.exports = {
     let username = message.author.username;
 
     let gmtShift = settings.getUserTime(userId);
-    if (gmtShift) {
+    if (gmtShift != undefined) {
       let currentTime = timeService.getCurrentTimeInZone(parseInt(gmtShift));
       let inHours = (20 + 24 - currentTime.hours - 1) % 24;
       let inMinutes = 60 - currentTime.minutes;

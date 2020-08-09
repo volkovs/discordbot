@@ -4,9 +4,9 @@ const settingsService = require("../services/settings-service");
 const botName = "@PutlerBot";
 
 const fullExample = `${botName} what is @Putler reward time?`;
-const shortExample = `${botName} get @Putler reward time`;
+const shortExample = `${botName} get @Putler time`;
 
-let getOtherTimePattern = /.+(?:what is|when is|get) <@!(.+)>(?: reward)*\s+time/;
+let getOtherTimePattern = /.+(?:what is|when is|get) <@!(.+)>(?: reward)*\s+time/i;
 
 module.exports = {
   name: "Show someone else reward time",
@@ -30,13 +30,13 @@ module.exports = {
     let gmtShift = settingsService.getUserTime(userId);
     let username = settingsService.getUserName(userId);
 
-    if (gmtShift) {
+    if (gmtShift != undefined) {
       message.channel.send(
-        "User " + username + " " + userId + " has GMT" + gmtShift
+        "User " + username + " " + userId + " has GMT" + gmtShift + '.'
       );
     } else {
       message.channel.send(
-        "User <@!" + userId + "> hasn't defined her reward time"
+        "User <@!" + userId + "> hasn't defined her reward time."
       );
     }
   },
