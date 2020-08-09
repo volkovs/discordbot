@@ -2,11 +2,9 @@ const settings = require("../services/settings-service");
 const settingsService = require("../services/settings-service");
 
 const botName = "@PutlerBot";
-const fullExample = `${botName} what is my reward time?`;
-const shortExample = `${botName} get reward time`;
 
-const fullExample2 = `${botName} what is @Putler reward time?`;
-const shortExample2 = `${botName} get @Putler reward time`;
+const fullExample = `${botName} what is @Putler reward time?`;
+const shortExample = `${botName} get @Putler reward time`;
 
 let getOtherTimePattern = /.+(?:what is|when is|get) <@!(.+)>(?: reward)*\s+time/;
 
@@ -42,12 +40,11 @@ module.exports = {
       );
     }
   },
+  hint: function() {
+    return hinter(fullExample, shortExample);
+  },
 };
 
-function hint(fullExample, shortExample) {
-  return `To get your reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
-}
-
-function hint2(fullExample, shortExample) {
-  return `To get someone else reward time try:\n    \`${fullExample2}\`\n    \`${shortExample2}\``;
+function hinter(fullExample, shortExample) {
+  return `To get someone else reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
 }

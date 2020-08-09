@@ -10,6 +10,7 @@ const reactCommand = require('./commands/react-command');
 const setTimeCommand = require('./commands/set-time-command');
 const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
+const helpCommand = require('./commands/help-command');
 
 const rewardChannelName = 'timezone-rewards';
 
@@ -17,7 +18,7 @@ let messageHandlers = {
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
-messageHandlers[rewardChannelName] = [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand];
+messageHandlers[rewardChannelName] = [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand, helpCommand];
 
 client.on('ready', () => {
     setUp();
@@ -69,19 +70,19 @@ function onMessage(message) {
     messageHandlers.forEach(messageHandler => {
         let shouldHandle = false;
         try {
-            console.log(`Should handle '${messageHandler.name}'?`);
+            // console.log(`Should handle '${messageHandler.name}'?`);
             shouldHandle = messageHandler.shouldHandle(message, client);
-            console.log(shouldHandle);
+            // console.log(shouldHandle);
         } catch (error) {
             console.log(`Error deciding if message '${message.content}' should be handled by '${messageHandler.name}'`, error);
             return;
         }
         if (shouldHandle) {
             try {
-                console.log(`Handler '${messageHandler.name}'?`);
+                // console.log(`Handler '${messageHandler.name}'?`);
                 messageHandler.handle(message, client);
                 messageHandled = true;
-                console.log('Handled');
+                // console.log('Handled');
             } catch(error) {
                 console.log(`Error handling message '${message.content}' by '${messageHandler.name}'`, error);
                 return;
@@ -135,9 +136,6 @@ function setUp() {
         // rewardChannel.send("Hello everybody! How are you doing this fine evening?")
         // rewardChannel.send({files: ['https://www.devdungeon.com/sites/all/themes/devdungeon2/logo.png']})
     // })
-
-    // TODO: remove
-    timeService.log();
 
     scheduleService.init(findChannels(rewardChannelName, client));
 }

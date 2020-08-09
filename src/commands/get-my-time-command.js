@@ -40,8 +40,12 @@ module.exports = {
       );
     }
   },
+
+  hint: function() {
+    return hinter(fullExample, shortExample);
+  },
 };
 
-function hint(fullExample, shortExample) {
+function hinter(fullExample, shortExample) {
   return `To get your reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
 }

@@ -29,29 +29,4 @@ module.exports = {
     return localHours - now.getUTCHours();
   },
 
-  log: function () {
-    // console.log('Time service:');
-    // console.log(this.getCurrentTimeInGmt());
-    // console.log('UTC hours:', new Date().getUTCHours(), 'UTC minutes:', new Date().getUTCMinutes());
-    console.log("GMT-23", JSON.stringify(this.getCurrentTimeInZone(-23)));
-    console.log("GMT-22", JSON.stringify(this.getCurrentTimeInZone(-22)));
-    console.log("GMT-21", JSON.stringify(this.getCurrentTimeInZone(-21)));
-    console.log("GMT-20", JSON.stringify(this.getCurrentTimeInZone(-20)));
-    console.log("GMT-2", JSON.stringify(this.getCurrentTimeInZone(-2)));
-    console.log("GMT-1", JSON.stringify(this.getCurrentTimeInZone(-1)));
-    console.log("GMT0", JSON.stringify(this.getCurrentTimeInZone(0)));
-    console.log("GMT1", JSON.stringify(this.getCurrentTimeInZone(1)));
-    console.log("GMT2", JSON.stringify(this.getCurrentTimeInZone(2)));
-    console.log("GMT3", JSON.stringify(this.getCurrentTimeInZone(3)));
-    console.log("GMT4", JSON.stringify(this.getCurrentTimeInZone(4)));
-    console.log("GMT5", JSON.stringify(this.getCurrentTimeInZone(5)));
-    console.log("GMT6", JSON.stringify(this.getCurrentTimeInZone(6)));
-
-    console.log(
-      "Users with hours 23",
-      JSON.stringify(this.getUsersHavingHours(23))
-    );
-
-    console.log('Current GMT shift:', this.getGmtShift(19));
-  },
 };
