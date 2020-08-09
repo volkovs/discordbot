@@ -88,8 +88,10 @@ function onMessage(message) {
   }
 
 bot_token = process.env.BOT_TOKEN
+console.log(process.env.BOT_STORAGE_PATH);
+
 if (!bot_token) {
-    console.log('Bot token is NOT defined - please cpecify "bot_token=... npm run dev"')
+    console.log('Bot token is NOT defined - please cpecify "BOT_TOKEN=... npm run dev"')
     return
 } else {
     console.log('Bot token is defined - OK')
