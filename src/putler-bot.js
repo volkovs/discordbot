@@ -4,10 +4,12 @@ const client = new Discord.Client();
 const avatarCommand = require('./commands/avatar-command');
 const embedCommand = require('./commands/embed-command');
 const reactCommand = require('./commands/react-command');
-const settingsCommand = require('./commands/settings-command');
+const setTimeCommand = require('./commands/set-time-command');
+const getMyTimeCommand = require('./commands/get-my-time-command');
+const getOtherTimeCommand = require('./commands/get-other-time-command');
 
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand, settingsCommand],
+    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, getOtherTimeCommand],
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
@@ -62,15 +64,19 @@ function onMessage(message) {
     messageHandlers.forEach(messageHandler => {
         let shouldHandle = false;
         try {
+            console.log(`Should handle '${messageHandler.name}'?`);
             shouldHandle = messageHandler.shouldHandle(message, client);
+            console.log(shouldHandle);
         } catch (error) {
             console.log(`Error deciding if message '${message.content}' should be handled by '${messageHandler.name}'`, error);
             return;
         }
         if (shouldHandle) {
             try {
+                console.log(`Handler '${messageHandler.name}'?`);
                 messageHandler.handle(message, client);
                 messageHandled = true;
+                console.log('Handled');
             } catch(error) {
                 console.log(`Error handling message '${message.content}' by '${messageHandler.name}'`, error);
                 return;
