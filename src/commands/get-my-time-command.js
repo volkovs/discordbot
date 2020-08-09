@@ -1,4 +1,5 @@
 const settings = require("../services/settings-service");
+const timeService = require('../services/time-service');
 const setTimeCommand = require("./set-time-command.js");
 
 const botName = "@PutlerBot";
@@ -27,8 +28,11 @@ module.exports = {
 
     let gmtShift = settings.getUserTime(userId);
     if (gmtShift) {
+      let currentTime = timeService.getCurrentTimeInZone(parseInt(gmtShift));
+      let inHours = (20 + 24 - currentTime.hours - 1) % 24;
+      let inMinutes = 60 - currentTime.minutes;
       message.channel.send(
-        "User " + username + " " + userId + " has GMT" + gmtShift
+        `You have GMT${gmtShift}. Your reward is in ${inHours} hours and ${inMinutes} minutes.`
       );
     } else {
       message.channel.send(

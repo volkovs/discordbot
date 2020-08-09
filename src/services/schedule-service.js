@@ -27,7 +27,7 @@ function scheduleRewardTime(channels) {
   }
 
   let currentGmtShift = timeService.getGmtShift(notificationTimeHours);
-  let message = `GMT${currentGmtShift}: These Players have awards in the next hour:\n`;
+  let message = `GMT${currentGmtShift}: These Players have reward in the next hour:\n`;
   users.forEach((user) => {
     message += ` - ${user.userName}\n`;
   });
