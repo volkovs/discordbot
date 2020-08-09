@@ -45,6 +45,16 @@ module.exports = {
     return userSettings.gmtUsers[gmt];
   },
 
+  getAllUsers() {
+    let allUsers = [];
+    Object.keys(userSettings.gmts).forEach(userId => {
+      let userName = userSettings.userNames[userId];
+      let gmt = userSettings.gmts[userId];
+      allUsers.push({userId, userName, gmt});
+    });
+    return allUsers;
+  },
+
   init: function () {
     let storagePath = process.env.BOT_STORAGE_PATH;
     if (!storagePath) {

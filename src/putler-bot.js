@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const settingsService = require('./services/settings-service');
+const timeService = require('./services/time-service');
+const scheduleService = require('./services/schedule-service');
 
 const avatarCommand = require('./commands/avatar-command');
 const embedCommand = require('./commands/embed-command');
@@ -9,11 +11,13 @@ const setTimeCommand = require('./commands/set-time-command');
 const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
 
+const rewardChannelName = 'timezone-rewards';
+
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, getOtherTimeCommand],
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
+messageHandlers[rewardChannelName] = [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand];
 
 client.on('ready', () => {
     setUp();
@@ -101,6 +105,17 @@ function findChannelIn(channelName, guild) {
     return guild.channels.cache.find(ch => ch.name === channelName);
 }
 
+function findChannels(channelName, client) {
+    let channels = [];
+    client.guilds.cache.forEach((guild) => {
+        let channel = findChannelIn(channelName, guild);
+        if (channel) {
+            channels.push(channel);
+        }
+    });
+    return channels;
+}
+
 function setUp() {
     settingsService.init();
     client.user.setActivity('with human beings');
@@ -120,6 +135,11 @@ function setUp() {
         // rewardChannel.send("Hello everybody! How are you doing this fine evening?")
         // rewardChannel.send({files: ['https://www.devdungeon.com/sites/all/themes/devdungeon2/logo.png']})
     // })
+
+    // TODO: remove
+    timeService.log();
+
+    scheduleService.init(findChannels(rewardChannelName, client));
 }
 
 client.login(bot_token)
