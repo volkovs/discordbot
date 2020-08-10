@@ -6,7 +6,7 @@ const botName = "@PutlerBot";
 const fullExample = `${botName} what is @Putler reward time?`;
 const shortExample = `${botName} get @Putler time`;
 
-let getOtherTimePattern = /.+(?:what is|when is|get) <@!(.+)>(?: reward)*\s+time/i;
+let getOtherTimePattern = /.+(?:what is|when is|get) <@!*(.+)>(?: reward)*\s+time/i;
 
 module.exports = {
   name: "Show someone else reward time",
@@ -15,9 +15,9 @@ module.exports = {
     // Check if the bot's user was tagged in the message
     let messageContent = message.content;
     let botId = client.user.id;
-    let botReference = `<@!${botId}>`;
+    let botReferencePattern = `^<@!*${botId}>`;
     return (
-      messageContent.startsWith(botReference) &&
+      messageContent.match(botReferencePattern) &&
       messageContent.match(getOtherTimePattern)
     );
   },

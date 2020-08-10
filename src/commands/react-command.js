@@ -6,8 +6,8 @@ module.exports = {
         // Check if the bot's user was tagged in the message
         let messageContent = message.content;
         let botId = client.user.id;
-        let botReference = `<@!${botId}>`;
-        return messageContent.includes(botId) && !messageContent.startsWith(botReference);
+        let botReferencePattern = `^<@!*${botId}>`;
+        return messageContent.includes(botId) && !messageContent.match(botReferencePattern);
     },
     
     handle: function(message) {

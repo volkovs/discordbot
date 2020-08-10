@@ -6,7 +6,7 @@ const botName = "@PutlerBot";
 const fullExample = `${botName} please help`;
 const shortExample = `${botName} help`;
 
-let helpPattern = /<@!.+>\s+(?:please\s+)*help/i;
+let helpPattern = /<@!*.+>\s+(?:please\s+)*help/i;
 
 module.exports = {
   name: "Help",
@@ -15,9 +15,9 @@ module.exports = {
     // Check if the bot's user was tagged in the message
     let messageContent = message.content;
     let botId = client.user.id;
-    let botReference = `<@!${botId}>`;
+    let botReferencePattern = `^<@!*${botId}>`;
     return (
-      messageContent.startsWith(botReference) &&
+      messageContent.match(botReferencePattern) &&
       messageContent.match(helpPattern)
     );
   },

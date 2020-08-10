@@ -14,10 +14,14 @@ module.exports = {
   shouldHandle: function (message, client) {
     // Check if the bot's user was tagged in the message
     let messageContent = message.content;
+
+    // TODO: remove most console.logs
+    console.log('Incoming message:', messageContent);
+
     let botId = client.user.id;
-    let botReference = `<@!${botId}>`;
+    let botReferencePattern = `^<@!*${botId}>`;
     return (
-      messageContent.startsWith(botReference) &&
+      messageContent.match(botReferencePattern) &&
       messageContent.match(getMyTimePattern)
     );
   },
