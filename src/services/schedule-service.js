@@ -38,9 +38,7 @@ function scheduleRewardTime(client) {
   });
 
   channels.forEach((channel) => {
-
-    // TODO: restore after update
-    // channel.send(message);
+    channel.send(message);
   });
 
   console.log(
