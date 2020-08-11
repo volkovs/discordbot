@@ -26,7 +26,7 @@ module.exports = {
 
   getGmtShift(localHours) {
     let now = new Date();
-    return localHours - now.getUTCHours();
+    return (localHours - now.getUTCHours() + 12) % 24 - 12;
   },
 
 };
