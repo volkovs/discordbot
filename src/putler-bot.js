@@ -12,13 +12,11 @@ const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
 const helpCommand = require('./commands/help-command');
 
-const rewardChannelName = 'timezone-rewards';
-
 let messageHandlers = {
+    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
-messageHandlers[rewardChannelName] = [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand, helpCommand];
 
 client.on('ready', () => {
     setUp();
@@ -31,7 +29,7 @@ client.on('guildMemberAdd', member => {
     }
     
     channel.send(`Welcome to the server, ${member}`);
-    // channel.send("Please visit channel '" + rewardChannelName + 
+    // channel.send("Please visit channel '" + 'timezone-rewards' + 
     // "' and specify your reward time, e.g. by starting with `!reward help`")
   });
 
@@ -106,17 +104,6 @@ function findChannelIn(channelName, guild) {
     return guild.channels.cache.find(ch => ch.name === channelName);
 }
 
-function findChannels(channelName, client) {
-    let channels = [];
-    client.guilds.cache.forEach((guild) => {
-        let channel = findChannelIn(channelName, guild);
-        if (channel) {
-            channels.push(channel);
-        }
-    });
-    return channels;
-}
-
 function setUp() {
     settingsService.init();
     client.user.setActivity('with human beings');
@@ -137,7 +124,7 @@ function setUp() {
         // rewardChannel.send({files: ['https://www.devdungeon.com/sites/all/themes/devdungeon2/logo.png']})
     // })
 
-    scheduleService.init(findChannels(rewardChannelName, client));
+    scheduleService.init(client);
 }
 
 client.login(bot_token)

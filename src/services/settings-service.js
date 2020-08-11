@@ -55,6 +55,15 @@ module.exports = {
     return allUsers;
   },
 
+  setLastHours(lastHours) {
+    userSettings.lastHours = lastHours;
+    fs.writeFileSync(userSettingsPath, JSON.stringify(userSettings));
+  },
+
+  getLastHours() {
+    return userSettings.lastHours;
+  },
+
   init: function () {
     let storagePath = process.env.BOT_STORAGE_PATH;
     if (!storagePath) {
@@ -86,4 +95,6 @@ let userSettings = {
 
   // {5: [{userId, userName}]}
   gmtUsers: {},
+
+  lastSchedulerHours: 0,
 };

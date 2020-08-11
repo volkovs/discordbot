@@ -1,16 +1,18 @@
-const timeService = require("./time-service");
+const timeService = require('./time-service');
+const settingsService = require('./settings-service');
 
 const notificationTimeHours = 19;
 
+let lastSchedulerHours;
+
 module.exports = {
-  init: function (channels) {
-    setInterval(() => scheduleRewardTime(channels), 1000 * 60);
+  init: function (client) {
+    lastSchedulerHours = settingsService.getLastHours();
+    setInterval(() => scheduleRewardTime(client), 1000 * 60);
   },
 };
 
-let lastSchedulerHours;
-
-function scheduleRewardTime(channels) {
+function scheduleRewardTime(client) {
   let now = new Date();
   let hours = now.getUTCHours();
 
@@ -19,12 +21,15 @@ function scheduleRewardTime(channels) {
     return;
   }
   lastSchedulerHours = hours;
+  settingsService.setLastHours(lastSchedulerHours);
 
   // do not spam if there is no users affected
   let users = timeService.getUsersHavingHours(notificationTimeHours);
   if (!users || users.length === 0) {
     return;
   }
+
+  let channels = findChannels("timezone-rewards", client);
 
   let currentGmtShift = timeService.getGmtShift(notificationTimeHours);
   let message = `GMT${currentGmtShift}: These Players have reward in the next hour:\n`;
@@ -41,4 +46,19 @@ function scheduleRewardTime(channels) {
       users
     )}`
   );
+}
+
+function findChannelIn(channelName, guild) {
+  return guild.channels.cache.find((ch) => ch.name === channelName);
+}
+
+function findChannels(channelName, client) {
+  let channels = [];
+  client.guilds.cache.forEach((guild) => {
+    let channel = findChannelIn(channelName, guild);
+    if (channel) {
+      channels.push(channel);
+    }
+  });
+  return channels;
 }
