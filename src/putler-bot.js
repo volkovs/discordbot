@@ -10,10 +10,11 @@ const reactCommand = require('./commands/react-command');
 const setTimeCommand = require('./commands/set-time-command');
 const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
+const setOtherTimeCommand = require('./commands/set-other-time-command');
 const helpCommand = require('./commands/help-command');
 
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand,     getMyTimeCommand, getOtherTimeCommand, helpCommand],
+    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, setOtherTimeCommand, getMyTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [],
     '*': [reactCommand],
 };
