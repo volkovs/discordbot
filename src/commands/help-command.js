@@ -1,8 +1,12 @@
 const setTimeCommand = require("./set-time-command");
 const getMyTimeCommand = require("./get-my-time-command");
 const getOtherTimeCommand = require("./get-other-time-command");
+const setOtherTimeCommand = require("./set-other-time-command");
+const unsetOtherTimeCommand = require("./unset-other-time-command");
+const clientService = require("../services/client-service");
 
 const botName = "@PutlerBot";
+const adminRole = 'WD Leader';
 const fullExample = `${botName} please help`;
 const shortExample = `${botName} help`;
 
@@ -26,6 +30,11 @@ module.exports = {
     message.channel.send(setTimeCommand.hint());
     message.channel.send(getMyTimeCommand.hint());
     message.channel.send(getOtherTimeCommand.hint());
+
+    if (clientService.userHasRole(message.author.id, adminRole)) {
+      message.channel.send(setOtherTimeCommand.hint());
+      message.channel.send(unsetOtherTimeCommand.hint());
+    }
   },
 };
 
