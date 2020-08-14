@@ -19,15 +19,19 @@ module.exports = {
     let botId = client.user.id;
     let botReferencePattern = `^<@!*${botId}>`;
 
-    let hasPermission = clientService.userHasRole(message.author.id, adminRole)
     return (
       messageContent.match(botReferencePattern) &&
-      messageContent.match(unsetOtherTimePattern) &&
-      hasPermission
+      messageContent.match(unsetOtherTimePattern)
     );
   },
 
   handle: function (message, client) {
+    let hasPermission = clientService.userHasRole(message.author.id, adminRole);
+    if (!hasPermission) {
+      message.channel.send(`You don't have permissions (role \`${adminRole}\`)`);
+      return;
+    }
+
     let messageContent = message.content;
     let match = messageContent.match(unsetOtherTimePattern);
     let userId = match[1];

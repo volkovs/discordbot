@@ -18,7 +18,7 @@ const helpCommand = require('./commands/help-command');
 let messageHandlers = {
     'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [],
-    '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand],
+    '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
 };
 
 client.on('ready', () => {
