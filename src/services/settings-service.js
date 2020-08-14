@@ -30,6 +30,27 @@ module.exports = {
     fs.writeFileSync(userSettingsPath, JSON.stringify(userSettings));
   },
 
+  unsetUserTime: function (user) {
+    let userId = user.id;
+    let userName = user.username;
+
+    // remove from previous GMT key if any
+    let existingGmt = userSettings.gmts[userId];
+    if (existingGmt) {
+      delete userSettings.gmts[userId];
+      delete userSettings.userNames[userId];
+
+      let users = userSettings.gmtUsers[existingGmt];
+      userSettings.gmtUsers[existingGmt] = users.filter(
+        (user) => user.userId !== userId
+      );
+    }
+
+    console.log(JSON.stringify(userSettings));
+
+    fs.writeFileSync(userSettingsPath, JSON.stringify(userSettings));
+  },
+
   // -5
   getUserTime: function (userId) {
     return userSettings.gmts[userId];

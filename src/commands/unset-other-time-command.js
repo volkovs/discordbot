@@ -3,13 +3,13 @@ const timeService = require('../services/time-service');
 
 const botName = "@PutlerBot";
 
-const fullExample = `${botName} please set @Putler reward time`;
-const shortExample = `${botName} set @Putler time`;
+const fullExample = `${botName} please reset @Putler reward time`;
+const shortExample = `${botName} unset @Putler time`;
 
-let setOtherTimePattern = /.+\s+set.+<@!*(.+)>.+time.+GMT\s*\+*(-*\d+)/i;
+let unsetOtherTimePattern = /.+(?:un|re)set.+<@!*(.+)>.+time.*/i;
 
 module.exports = {
-  name: "Set someone else reward time",
+  name: "Clear someone else reward time",
 
   shouldHandle: function (message, client) {
     // Check if the bot's user was tagged in the message
@@ -18,22 +18,21 @@ module.exports = {
     let botReferencePattern = `^<@!*${botId}>`;
     return (
       messageContent.match(botReferencePattern) &&
-      messageContent.match(setOtherTimePattern)
+      messageContent.match(unsetOtherTimePattern)
     );
   },
 
   handle: function (message, client) {
     let messageContent = message.content;
-    let match = messageContent.match(setOtherTimePattern);
+    let match = messageContent.match(unsetOtherTimePattern);
     let userId = match[1];
-    let gmtShift = parseInt(match[2]);
     
     let user = findUser(client, userId)
     let username = user.username;
     
-    settingsService.setUserTime(user, gmtShift);
+    settingsService.unsetUserTime(user);
 
-    message.channel.send(`User ${message.author.username} set time for ${username} to GMT${gmtShift}`);
+    message.channel.send(`User ${message.author.username} cleared time for ${username}`);
   },
 
   hint: function() {
@@ -42,7 +41,7 @@ module.exports = {
 };
 
 function hinter(fullExample, shortExample) {
-  return `To set someone else reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
+  return `To unset someone else reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
 }
 
 function findUser(client, userId) {
