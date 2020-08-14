@@ -16,9 +16,9 @@ const unsetOtherTimeCommand = require('./commands/unset-other-time-command');
 const helpCommand = require('./commands/help-command');
 
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getMyTimeCommand, getOtherTimeCommand, helpCommand],
+    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [],
-    '*': [reactCommand],
+    '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand],
 };
 
 client.on('ready', () => {
