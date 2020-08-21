@@ -12,7 +12,6 @@ module.exports = {
     handle: function(message) {
         
         // send command to translator bot
-        message.react("🏴󠁧󠁢󠁥󠁮󠁧󠁿")
         message.react("🇺🇸")
     },
 
