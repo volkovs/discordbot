@@ -13,6 +13,7 @@ module.exports = {
         
         // send command to translator bot
         message.react("🏴󠁧󠁢󠁥󠁮󠁧󠁿")
+        message.react("🇺🇸")
     },
 
 };
