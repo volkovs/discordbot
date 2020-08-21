@@ -8,6 +8,7 @@ const clientService = require('./services/client-service');
 const avatarCommand = require('./commands/avatar-command');
 const embedCommand = require('./commands/embed-command');
 const reactCommand = require('./commands/react-command');
+const reactToCyrillisCommand = require('./commands/react-to-cyrillic-command');
 const setTimeCommand = require('./commands/set-time-command');
 const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
@@ -17,7 +18,7 @@ const helpCommand = require('./commands/help-command');
 
 let messageHandlers = {
     'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
-    'open-chat-and-recruitment': [],
+    'open-chat-and-recruitment': [reactToCyrillisCommand],
     '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
 };
 
