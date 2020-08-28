@@ -28,13 +28,16 @@ function scheduleRewardTime(client) {
   if (!users || users.length === 0) {
     return;
   }
+  let userNames = users.map(user => user.userName);
+  userNames.sort();
 
   let channels = findChannels("timezone-rewards", client);
 
   let currentGmtShift = timeService.getGmtShift(notificationTimeHours);
   let message = `GMT${currentGmtShift}: These Players have reward in the next hour:\n`;
-  users.forEach((user) => {
-    message += `     - ${user.userName}\n`;
+
+  userNames.forEach((userName) => {
+    message += `     - ${userName}\n`;
   });
 
   channels.forEach((channel) => {
@@ -43,7 +46,7 @@ function scheduleRewardTime(client) {
 
   console.log(
     `Current hours is ${hours}. These Players have awards in the next hour: ${JSON.stringify(
-      users
+      userNames
     )}`
   );
 }
