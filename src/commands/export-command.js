@@ -6,7 +6,7 @@ const botName = "@PutlerBot";
 const adminRole = 'WD Leader';
 
 const fullExample = `${botName} please export all users`;
-const shortExample = `${botName} export`;
+const shortExample = `${botName} export sort by GMT`;
 
 let exportPattern = /<@!*.+>\s+(?:please\s+)*export/i;
 
@@ -33,6 +33,12 @@ module.exports = {
 
     let msg = `User name : GMT:\n`;
     let allUsers = settingsService.getAllUsers();
+    if (message.content.includes('GMT')) {
+      allUsers.sort(compareByGmtAndUserName);
+    } else {
+      allUsers.sort(compareByUserName);
+    }
+
     allUsers.forEach(user => {
       msg += `    - \`${user.userName}\` : \`GMT${user.gmt}\`\n`;
     })
@@ -46,4 +52,24 @@ module.exports = {
 
 function hinter(fullExample, shortExample) {
   return `To export every user time settings:\n    \`${fullExample}\`\n    \`${shortExample}\``;
+}
+
+function compareByUserName(user1, user2) {
+  if ( user1.userName < user2.userName ){
+    return -1;
+  }
+  if ( user1.userName > user2.userName ){
+    return 1;
+  }
+  return 0;
+}
+
+function compareByGmtAndUserName(user1, user2) {
+  if ( user1.gmt < user2.gmt ){
+    return -1;
+  }
+  if ( user1.gmt > user2.gmt ){
+    return 1;
+  }
+  return compareByUserName(user1, user2);
 }
