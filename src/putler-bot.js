@@ -14,12 +14,13 @@ const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
 const setOtherTimeCommand = require('./commands/set-other-time-command');
 const unsetOtherTimeCommand = require('./commands/unset-other-time-command');
+const exportCommand = require('./commands/export-command');
 const helpCommand = require('./commands/help-command');
 
 let messageHandlers = {
     'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [reactToCyrillisCommand],
-    '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
+    '*': [reactCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, exportCommand, helpCommand],
 };
 
 client.on('ready', () => {
