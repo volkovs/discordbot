@@ -66,10 +66,10 @@ function compareByUserName(user1, user2) {
 
 function compareByGmtAndUserName(user1, user2) {
   if ( user1.gmt < user2.gmt ){
-    return -1;
+    return 1;
   }
   if ( user1.gmt > user2.gmt ){
-    return 1;
+    return -1;
   }
   return compareByUserName(user1, user2);
 }
