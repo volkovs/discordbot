@@ -23,13 +23,14 @@ function scheduleRewardTime(client) {
   lastSchedulerHours = hours;
   settingsService.setLastHours(lastSchedulerHours);
 
-  // do not spam if there is no users affected
+  // do not spam if there are no users affected
   let users = timeService.getUsersHavingHours(notificationTimeHours);
   if (!users || users.length === 0) {
     return;
   }
+
+  users.sort(compareByUserName);
   let userNames = users.map(user => user.userName);
-  userNames.sort();
 
   let channels = findChannels("timezone-rewards", client);
 
@@ -64,4 +65,16 @@ function findChannels(channelName, client) {
     }
   });
   return channels;
+}
+
+function compareByUserName(user1, user2) {
+  let userName1 = user1.userName.toLowerCase;
+  let userName2 = user2.userName.toLowerCase;
+  if ( userName1 < userName2 ){
+    return -1;
+  }
+  if ( userName1 > userName2 ){
+    return 1;
+  }
+  return 0;
 }

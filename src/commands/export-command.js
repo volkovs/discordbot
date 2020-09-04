@@ -55,10 +55,12 @@ function hinter(fullExample, shortExample) {
 }
 
 function compareByUserName(user1, user2) {
-  if ( user1.userName < user2.userName ){
+  let userName1 = user1.userName.toLowerCase;
+  let userName2 = user2.userName.toLowerCase;
+  if ( userName1 < userName2 ){
     return -1;
   }
-  if ( user1.userName > user2.userName ){
+  if ( userName1 > userName2 ){
     return 1;
   }
   return 0;
