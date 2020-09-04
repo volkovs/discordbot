@@ -35,7 +35,10 @@ function scheduleRewardTime(client) {
   let channels = findChannels("timezone-rewards", client);
 
   let currentGmtShift = timeService.getGmtShift(notificationTimeHours);
-  let message = `GMT${currentGmtShift}: These Players have reward in the next hour:\n`;
+  if (currentGmtShift > 0) {
+    currentGmtShift = '+' + currentGmtShift;
+  }
+  let message = `GMT${currentGmtShift}\nThese Players have reward in the next hour:\n`;
 
   userNames.forEach((userName) => {
     message += `     - ${userName}\n`;
