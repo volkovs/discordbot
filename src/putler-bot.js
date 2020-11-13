@@ -14,13 +14,14 @@ const getMyTimeCommand = require('./commands/get-my-time-command');
 const getOtherTimeCommand = require('./commands/get-other-time-command');
 const setOtherTimeCommand = require('./commands/set-other-time-command');
 const unsetOtherTimeCommand = require('./commands/unset-other-time-command');
+const unsetExuserTimeCommand = require('./commands/unset-exuser-time-command');
 const exportCommand = require('./commands/export-command');
 const helpCommand = require('./commands/help-command');
 
 let messageHandlers = {
-    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, helpCommand],
+    'timezone-rewards': [avatarCommand, embedCommand, setTimeCommand, getMyTimeCommand, setOtherTimeCommand, unsetOtherTimeCommand, unsetExuserTimeCommand, getOtherTimeCommand, helpCommand],
     'open-chat-and-recruitment': [],
-    '*': [reactCommand, reactToCyrillisCommand, setOtherTimeCommand, unsetOtherTimeCommand, getOtherTimeCommand, exportCommand, helpCommand],
+    '*': [reactCommand, reactToCyrillisCommand, setOtherTimeCommand, unsetOtherTimeCommand, unsetExuserTimeCommand, getOtherTimeCommand, exportCommand, helpCommand],
 };
 
 client.on('ready', () => {

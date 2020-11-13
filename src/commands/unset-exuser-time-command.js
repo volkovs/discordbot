@@ -6,12 +6,12 @@ const botName = "@PutlerBot";
 const adminRole = 'WD Leader';
 
 const fullExample = `${botName} please reset @Putler reward time`;
-const shortExample = `${botName} unset \`@ExPlayer\` time`;
+const shortExample = `${botName} unset @Putler time`;
 
-let unsetOtherTimePattern = /.+(?:un|re)set.+<@!*(.+)>.+time.*/i;
+let unsetExuserTimePattern = /.+(?:un|re)set.+`*@([^`]+)`*.+time.*/i;
 
 module.exports = {
-  name: "Clear someone else reward time",
+  name: "Clear exuser reward time",
 
   shouldHandle: function (message, client) {
     // Check if the bot's user was tagged in the message
@@ -21,7 +21,7 @@ module.exports = {
 
     return (
       messageContent.match(botReferencePattern) &&
-      messageContent.match(unsetOtherTimePattern)
+      messageContent.match(unsetExuserTimePattern)
     );
   },
 
@@ -33,15 +33,12 @@ module.exports = {
     }
 
     let messageContent = message.content;
-    let match = messageContent.match(unsetOtherTimePattern);
-    let userId = match[1];
+    let match = messageContent.match(unsetExuserTimePattern);
+    let userName = match[1];
     
-    let user = clientService.findUser(userId)
-    let username = user.username;
-    
-    settingsService.unsetUserTime(user);
+    settingsService.unsetExuserTime(userName);
 
-    message.channel.send(`User ${message.author.username} cleared time for ${username}`);
+    message.channel.send(`User ${message.author.username} cleared time for ${userName}`);
   },
 
   hint: function() {
@@ -50,5 +47,5 @@ module.exports = {
 };
 
 function hinter(fullExample, shortExample) {
-  return `To unset someone else reward time try:\n    \`\`${fullExample}\`\`\n    \`\`${shortExample}\`\``;
+  return `To unset someone else reward time try:\n    \`${fullExample}\`\n    \`${shortExample}\``;
 }

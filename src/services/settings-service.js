@@ -51,6 +51,37 @@ module.exports = {
     fs.writeFileSync(userSettingsPath, JSON.stringify(userSettings));
   },
 
+  // removes user that exited Discord server (that doesn't exist on server)
+  unsetExuserTime: function (userName) {
+
+    var userId;
+    for (const [id, name] of Object.entries(userSettings.userNames)) {
+      if (name == userName) {
+        userId = id;
+      }
+    }
+
+    if (!userId) {
+      return;
+    }
+
+    // remove from previous GMT key if any
+    let existingGmt = userSettings.gmts[userId];
+    if (existingGmt) {
+      delete userSettings.gmts[userId];
+      delete userSettings.userNames[userId];
+
+      let users = userSettings.gmtUsers[existingGmt];
+      userSettings.gmtUsers[existingGmt] = users.filter(
+        (user) => user.userId !== userId
+      );
+    }
+
+    console.log(JSON.stringify(userSettings));
+
+    fs.writeFileSync(userSettingsPath, JSON.stringify(userSettings));
+  },
+
   // -5
   getUserTime: function (userId) {
     return userSettings.gmts[userId];
