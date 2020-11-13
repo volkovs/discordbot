@@ -26,11 +26,6 @@ module.exports = {
   },
 
   handle: function (message, client) {
-    let hasPermission = clientService.userHasRole(message.author.id, adminRole);
-    if (!hasPermission) {
-      message.channel.send(`You don't have permissions (role \`${adminRole}\`)`);
-      return;
-    }
 
     let messageContent = message.content;
     let match = messageContent.match(setOtherTimePattern);
@@ -39,6 +34,14 @@ module.exports = {
     
     let user = clientService.findUser(userId)
     let username = user.username;
+
+    // do not ask for permission if target user is you
+    let targetUserIsAuthor = message.author.id == userId;
+    let hasPermission = clientService.userHasRole(message.author.id, adminRole);
+    if (!targetUserIsAuthor && !hasPermission) {
+      message.channel.send(`You don't have permissions (role \`${adminRole}\`)`);
+      return;
+    }
     
     settingsService.setUserTime(user, gmtShift);
 
