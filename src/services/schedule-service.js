@@ -71,8 +71,8 @@ function findChannels(channelName, client) {
 }
 
 function compareByUserName(user1, user2) {
-  let userName1 = user1.userName.toLowerCase;
-  let userName2 = user2.userName.toLowerCase;
+  let userName1 = user1.userName.toLowerCase();
+  let userName2 = user2.userName.toLowerCase();
   if ( userName1 < userName2 ){
     return -1;
   }
