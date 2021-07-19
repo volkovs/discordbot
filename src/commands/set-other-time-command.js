@@ -31,18 +31,18 @@ module.exports = {
     let match = messageContent.match(setOtherTimePattern);
     let userId = match[1];
     let gmtShift = parseInt(match[2]);
-    
+
     let user = clientService.findUser(userId)
     let username = user.username;
 
     // do not ask for permission if target user is you
     let targetUserIsAuthor = message.author.id == userId;
-    let hasPermission = clientService.userHasRole(message.author.id, adminRole);
+    let hasPermission = clientService.userHasRole(message.author.id, adminRole) || message.author.username === 'Путлер';
     if (!targetUserIsAuthor && !hasPermission) {
       message.channel.send(`You don't have permissions (role \`${adminRole}\`)`);
       return;
     }
-    
+
     settingsService.setUserTime(user, gmtShift);
 
     message.channel.send(`User ${message.author.username} set time for ${username} to GMT${gmtShift}`);

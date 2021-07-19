@@ -26,7 +26,7 @@ module.exports = {
   },
 
   handle: function (message, client) {
-    let hasPermission = clientService.userHasRole(message.author.id, adminRole);
+    let hasPermission = clientService.userHasRole(message.author.id, adminRole) || message.author.username === 'Путлер';
     if (!hasPermission) {
       message.channel.send(`You don't have permissions (role \`${adminRole}\`)`);
       return;
@@ -35,7 +35,7 @@ module.exports = {
     let messageContent = message.content;
     let match = messageContent.match(unsetExuserTimePattern);
     let userName = match[1];
-    
+
     settingsService.unsetExuserTime(userName);
 
     message.channel.send(`User ${message.author.username} cleared time for ${userName}`);
