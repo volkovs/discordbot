@@ -3,7 +3,7 @@ const timeService = require('../services/time-service');
 const clientService = require('../services/client-service');
 
 const botName = "@PutlerBot";
-const adminRole = 'WD Leader';
+const adminRole = 'Family Lead';
 
 const fullExample = `${botName} please export all users`;
 const shortExample = `${botName} export sort by GMT`;

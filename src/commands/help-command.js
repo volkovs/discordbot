@@ -7,7 +7,7 @@ const exportCommand = require("./export-command");
 const clientService = require("../services/client-service");
 
 const botName = "@PutlerBot";
-const adminRole = 'WD Leader';
+const adminRole = 'Family Lead';
 const fullExample = `${botName} please help`;
 const shortExample = `${botName} help`;
 

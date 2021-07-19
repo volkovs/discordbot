@@ -3,7 +3,7 @@ const timeService = require('../services/time-service');
 const clientService = require('../services/client-service');
 
 const botName = "@PutlerBot";
-const adminRole = 'WD Leader';
+const adminRole = 'Family Lead';
 
 const fullExample = `${botName} please reset @Putler reward time`;
 const shortExample = `${botName} unset \`@ExPlayer\` time`;
@@ -35,10 +35,10 @@ module.exports = {
     let messageContent = message.content;
     let match = messageContent.match(unsetOtherTimePattern);
     let userId = match[1];
-    
+
     let user = clientService.findUser(userId)
     let username = user.username;
-    
+
     settingsService.unsetUserTime(user);
 
     message.channel.send(`User ${message.author.username} cleared time for ${username}`);

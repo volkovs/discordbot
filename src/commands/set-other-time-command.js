@@ -3,7 +3,7 @@ const timeService = require('../services/time-service');
 const clientService = require('../services/client-service');
 
 const botName = "@PutlerBot";
-const adminRole = 'WD Leader';
+const adminRole = 'Family Lead';
 
 const fullExample = `${botName} please set @Putler reward time`;
 const shortExample = `${botName} set @Putler time`;
